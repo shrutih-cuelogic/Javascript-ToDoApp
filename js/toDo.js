@@ -121,25 +121,27 @@ var toDoServices = (function() {
         allItemList = itemList;
         var itemHtml = "";
 
-        allItemList.forEach(function(item, index, obj) {
-            var isdone = '<li>';
-            if (item["isDone"]) {
-                isdone = '<li class="done">';
-            }
-            itemHtml += isdone +
-                '<span class="handle ui-sortable-handle">' +
-                '<a href=""><i class="fa fa-ellipsis-v"></i></a>' +
-                '<i class="fa fa-ellipsis-v"></i>' +
-                '</span>&nbsp; ' +
-                '<input type="checkbox" value="' + index + '" id="item' + index + '"name="items">&nbsp;&nbsp;' +
-                '<span class="text">' + item["itemContent"] + '</span>' +
-                '<div class="tools">' +
-                '<a  onclick="toDoServices.editModal(' + index + ')"><i class="fa fa-edit"></i></a>&nbsp; &nbsp; ' +
-                '<a  onclick="toDoServices.deleteItem(' + index + ')"><i class="fa fa-trash-o"></i></a>' +
-                '</div>' +
-                '</li>';
-
-        });
+        if (allItemList){
+        	allItemList.forEach(function(item, index, obj) {
+		        var isdone = '<li>';
+		        if (item["isDone"]) {
+		            isdone = '<li class="done">';
+		        }
+		        itemHtml += isdone +
+		            '<span class="handle ui-sortable-handle">' +
+		            '<a href=""><i class="fa fa-ellipsis-v"></i></a>' +
+		            '<i class="fa fa-ellipsis-v"></i>' +
+		            '</span>&nbsp; ' +
+		            '<input type="checkbox" value="' + index + '" id="item' + index + '"name="items">&nbsp;&nbsp;' +
+		            '<span class="text">' + item["itemContent"] + '</span>' +
+		            '<div class="tools">' +
+		            '<a  onclick="toDoServices.editModal(' + index + ')"><i class="fa fa-edit"></i></a>&nbsp; &nbsp; ' +
+		            '<a  onclick="toDoServices.deleteItem(' + index + ')"><i class="fa fa-trash-o"></i></a>' +
+		            '</div>' +
+		            '</li>';
+        	});
+        }
+        
 
         document.getElementById('toDoList').innerHTML = itemHtml;
 
@@ -212,7 +214,7 @@ var toDoServices = (function() {
     }
 
     var deleteItem = function(index) {
-        allItemList.splice(allItemList.indexOf[index], 1);
+        allItemList.splice(index, 1);
         setAllItem(allItemList);
         displayToDoItem(allItemList);
     }

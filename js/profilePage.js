@@ -1,8 +1,8 @@
 var profilePageServices = (function() {
 
-
-    var getcurrentUserobject = function() {
-        var currentUser = localStorageServices.getLocalStorage("currentUser");
+	var currentUser = localStorageServices.getLocalStorage("currentUser");
+	
+    var getcurrentUserobject = function() {        
         return localStorageServices.getLocalStorage(currentUser);
     }
 

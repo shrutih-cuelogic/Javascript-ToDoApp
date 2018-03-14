@@ -76,12 +76,13 @@ var searchServices = (function() {
         toDoServices.hideforms();
         var isDone = document.getElementById("searchIsDone").checked;
         filteredItems = [];
-
-        allItemList.forEach(function(item, index) {
-            if (item["isDone"] == isDone) {
-                filteredItems.push(item);
-            }
-        });
+        if (allItemList.length != 0) {
+            allItemList.forEach(function(item, index) {
+                if (item["isDone"] == isDone) {
+                    filteredItems.push(item);
+                }
+            });
+        }
 
         displaySearchResult(filteredItems);
     }

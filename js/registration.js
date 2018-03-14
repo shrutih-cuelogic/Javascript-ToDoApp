@@ -10,6 +10,9 @@ var registrationServices = (function() {
         var address = document.getElementById("address").value;
         var password1 = document.getElementById("password1").value;
         var password2 = document.getElementById("password2").value;
+        document.getElementById("genderError").innerHTML = "";
+        document.getElementById("password2Error").innerHTML = "";
+        document.getElementById("usernameError").innerHTML = "";
         var gender;
 
         var form = this;
@@ -40,7 +43,6 @@ var registrationServices = (function() {
                 allUsersList.push(username)
                 localStorageServices.setLocalStorage("AllUsers", allUsersList);
             } else {
-
                 document.getElementById("usernameError").innerHTML = "<span style='color: red;'>User already exist</span>";
                 return false
             }
