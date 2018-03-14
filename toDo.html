@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/toDo.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" id="usernameNav" href="#"></a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="profilePage.html">Profile page</a></li>
+                <li class="active"><a href="toDo.html">To Do List</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="login.html" onclick='commonServices.logout()'><span class="glyphicon glyphicon-log-in"></span> LogOut</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="box box-aqua">
+                    <div class="box-header ui-sortable-handle" style="cursor: move;">
+                        <i class="ion ion-clipboard"></i>
+                        <h3 class="box-title">To Do List</h3>
+                    </div>
+                    <div class="box-body">
+                        <div id="searchDiv">
+                            <div>
+                                <label for="editDueDate">Due Date Range: </label> From
+                                <input type="date" id="range1" value="" name="range1"> To
+                                <input type="date" id="range2" value="" name="range2">
+                                <button class="btn btn-success pull-right" onclick="searchServices.searchOnDueDate();"><i class="fa fa-search"></i> Search item</button>
+                            </div>
+                            <hr>
+                            <div>
+                                <label for="itemContent">Category</label>
+                                <button class="btn btn-success pull-right" onclick="searchServices.searchOnCategory();"><i class="fa fa-search"></i> Search item</button>
+                                <div id="group">
+                                    <input type="checkbox" value="Food" name="searchCategory"> Food
+                                    <br>
+                                    <input type="checkbox" value="Health" name="searchCategory"> Health
+                                    <br>
+                                    <input type="checkbox" value="Study" name="searchCategory"> Study
+                                    <br>
+                                    <input type="checkbox" value="Other" name="searchCategory"> Other
+                                    <br>
+                                </div>
+                            </div>
+                            <hr>
+                            <div>
+                                <label>
+                                    <input type="checkbox" id="searchIsDone" name="searchIsDone"> Is Done
+                                </label>
+                                <button class="btn btn-success pull-right" onclick="searchServices.searchOnIsDone();"><i class="fa fa-search"></i> Search item</button>
+                            </div>
+                            <hr>
+                            <div>
+                                <label>
+                                    <input type="checkbox" id="searchIsPending" name="searchIsPending"> Is Pending
+                                </label>
+                                <button class="btn btn-success pull-right" onclick="searchServices.searchOnIsPending();"><i class="fa fa-search"></i> Search item</button>
+                            </div>
+                        </div>
+                        <h1>Result is here <i class="fa fa-hand-o-down"></i></h1>
+                        <ul class="todo-list ui-sortable" id="toDoList">
+                            <li>
+                                <span class="handle ui-sortable-handle">
+              <a href=""><i class="fa fa-ellipsis-v"></i></a>
+              <i class="fa fa-ellipsis-v"></i>
+            </span>
+                                <input type="checkbox" value="" name="">
+                                <span class="text">Design a nice theme</span>
+                                <small class="label label-danger"><i class="fa fa-clock-o"></i> 2 mins</small>
+                                <div class="tools">
+                                    <i class="fa fa-edit"></i>
+                                    <i class="fa fa-trash-o"></i>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="box-footer clearfix no-border">
+                        <button class="btn btn-danger" onclick="toDoServices.bulkDelete();"><i class="fa fa-close"></i> Bulk Delete</button>
+                        <button class="btn btn-primary " onclick="toDoServices.addItem();"><i class="fa fa-plus"></i> Add item</button>
+                        <button class="btn btn-info " onclick="toDoServices.displayToDoItem(toDoServices.getAllItem());"><i class="fa fa-th-list"></i> Show All items</button>
+                        <button class="btn btn-warning" onclick="sortServices.descSort();"><i class="fa fa-sort-down"></i> Sort-up on due date</button>
+                        <button class="btn btn-warning " onclick="sortServices.ascSort();"><i class="fa fa-sort-up"></i> Sort-down on due date</button>
+                        <form id="addItemForm" method="post" hidden="hidden">
+                            <h1>Add Item</h1>
+                            <div class="form-group">
+                                <label for="itemContent">Item</label>
+                                <input type="text" class="form-control" id="itemContent" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="itemContent">Category</label>
+                                <div id="group">
+                                    <input type="checkbox" value="Food" name="category" onclick="toDoServices.category(this,'category')"> Food
+                                    <br>
+                                    <input type="checkbox" value="Health" name="category" onclick="toDoServices.category(this,'category')"> Health
+                                    <br>
+                                    <input type="checkbox" value="Study" name="category" onclick="toDoServices.category(this,'category')"> Study
+                                    <br>
+                                    <input type="checkbox" value="Other" name="category" onclick="toDoServices.category(this,'category')"> Other
+                                    <br>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="dueDate">Due Date</label>
+                                <input type="date" id="dueDate" name="dueDate">
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" id="isReminder" name="reminder" onclick="toDoServices.Reminder('reminderDateDiv','reminderDate',this)"> Is Reminder
+                                </label>
+                            </div>
+                            <div class="form-group" id="reminderDateDiv" hidden="hidden">
+                                <label for="reminderDate">Reminder Date</label>
+                                <input type="date" id="reminderDate" name="reminderDate">
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <input type="radio" id="ispublic" name="public"> Is Public
+                                </label>
+                            </div>
+                            <br>
+                            <br>
+                            <div class="btn-group btn-group-justified" role="group" aria-label="group button">
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-default" onclick="toDoServices.closeForm('addItemForm');" role="button">Close</button>
+                                </div>
+                                <div class="btn-group" role="group">
+                                    <button type="submit" class="btn btn-default btn-hover-green" data-action="save" role="button">Save</button>
+                                </div>
+                            </div>
+                        </form>
+                        <form id="editItemForm" method="post" hidden="hidden">
+                            <input type="hidden" class="form-control" id="itemIndex">
+                            <h1>Edit Item</h1>
+                            <div class="form-group">
+                                <label for="editItemContent">Item</label>
+                                <input type="text" class="form-control" id="editItemContent" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="itemContent">Category</label>
+                                <div id="group">
+                                    <input type="checkbox" id="Food" value="Food" name="editCategory" onclick="toDoServices.category(this,'editCategory')"> Food
+                                    <br>
+                                    <input type="checkbox" id="Health" value="Health" name="editCategory" onclick="toDoServices.category(this,'editCategory')"> Health
+                                    <br>
+                                    <input type="checkbox" id="Study" value="Study" name="editCategory" onclick="toDoServices.category(this,'editCategory')"> Study
+                                    <br>
+                                    <input type="checkbox" id="Other" value="Other" name="editCategory" onclick="toDoServices.category(this,'editCategory')"> Other
+                                    <br>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="editDueDate">Due Date</label>
+                                <input type="date" id="editDueDate" value="" name="editDueDate">
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" id="editIsReminder" name="reminder" onclick="toDoServices.Reminder('editReminderDateDiv','editReminderDate',this)"> Is Reminder
+                                </label>
+                            </div>
+                            <div class="form-group" id="editReminderDateDiv" hidden="hidden">
+                                <label for="reminderDate">Reminder Date</label>
+                                <input type="date" id="editReminderDate" value="" name="reminderDate">
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <input type="radio" id="editIspublic" name="public"> Is Public
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" id="editIsDone" name="done"> Is Done
+                                </label>
+                            </div>
+                            <br>
+                            <br>
+                            <div class="btn-group btn-group-justified" role="group" aria-label="group button">
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-default" onclick="toDoServices.closeForm('editItemForm');" role="button">Close</button>
+                                </div>
+                                <div class="btn-group" role="group">
+                                    <button type="submit" class="btn btn-default btn-hover-green" data-action="save" role="button">Save</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/moment.js"></script>
+    <script src="js/localStorage.js"></script>
+    <script src="js/toDo.js"></script>
+    <script src="js/sort.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/common.js"></script>
+    <script>
+    </script>
+</body>
+
+</html>
