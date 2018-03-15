@@ -11,7 +11,6 @@ var localStorageServices = (function() {
     var service = {};
     service.setLocalStorage = setLocalStorage;
     service.getLocalStorage = getLocalStorage;
-
     return service;
 
 })();

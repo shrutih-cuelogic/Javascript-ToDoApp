@@ -1,6 +1,6 @@
 var sortServices = (function() {
 
-    var currentUser = localStorageServices.getLocalStorage("currentUser");
+    var currentUser = commonServices.getCurrentUser();
     var filteredItems = [];
     var allItemList;
 
@@ -16,16 +16,16 @@ var sortServices = (function() {
     }
 
     var descSort = function() {
-        allItemList = localStorageServices.getLocalStorage(currentUser + "Items");
+        allItemList = commonServices.getAllItem(currentUser);
         allItemList.sort(GetSortOrder("dueDate"));
-        toDoServices.displayToDoItem(allItemList);
+        commonServices.displayToDoItem(allItemList);
     }
 
     var ascSort = function() {
-        allItemList = localStorageServices.getLocalStorage(currentUser + "Items");
+        allItemList = commonServices.getAllItem(currentUser);
         allItemList.sort(GetSortOrder("dueDate"));
         allItemList.reverse();
-        toDoServices.displayToDoItem(allItemList);
+        commonServices.displayToDoItem(allItemList);
     }
 
     var service = {};

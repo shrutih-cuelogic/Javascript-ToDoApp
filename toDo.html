@@ -87,9 +87,9 @@
                         </ul>
                     </div>
                     <div class="box-footer clearfix no-border">
-                        <button class="btn btn-danger" onclick="toDoServices.bulkDelete();"><i class="fa fa-close"></i> Bulk Delete</button>
-                        <button class="btn btn-primary " onclick="toDoServices.addItem();"><i class="fa fa-plus"></i> Add item</button>
-                        <button class="btn btn-info " onclick="toDoServices.displayToDoItem(toDoServices.getAllItem());"><i class="fa fa-th-list"></i> Show All items</button>
+                        <button class="btn btn-danger" onclick="deleteItemServices.bulkDelete();"><i class="fa fa-close"></i> Bulk Delete</button>
+                        <button class="btn btn-primary " onclick="addItemServices.addItem();"><i class="fa fa-plus"></i> Add item</button>
+                        <button class="btn btn-info " onclick="commonServices.displayToDoItem(commonServices.getAllItem(commonServices.getCurrentUser()));"><i class="fa fa-th-list"></i> Show All items</button>
                         <button class="btn btn-warning" onclick="sortServices.descSort();"><i class="fa fa-sort-down"></i> Sort-up on due date</button>
                         <button class="btn btn-warning " onclick="sortServices.ascSort();"><i class="fa fa-sort-up"></i> Sort-down on due date</button>
                         <form id="addItemForm" method="post" hidden="hidden">
@@ -101,13 +101,13 @@
                             <div class="form-group">
                                 <label for="itemContent">Category</label>
                                 <div id="group">
-                                    <input type="checkbox" value="Food" name="category" onclick="toDoServices.category(this,'category')"> Food
+                                    <input type="checkbox" value="Food" name="category" onclick="commonServices.category(this,'category')"> Food
                                     <br>
-                                    <input type="checkbox" value="Health" name="category" onclick="toDoServices.category(this,'category')"> Health
+                                    <input type="checkbox" value="Health" name="category" onclick="commonServices.category(this,'category')"> Health
                                     <br>
-                                    <input type="checkbox" value="Study" name="category" onclick="toDoServices.category(this,'category')"> Study
+                                    <input type="checkbox" value="Study" name="category" onclick="commonServices.category(this,'category')"> Study
                                     <br>
-                                    <input type="checkbox" value="Other" name="category" onclick="toDoServices.category(this,'category')"> Other
+                                    <input type="checkbox" value="Other" name="category" onclick="commonServices.category(this,'category')"> Other
                                     <br>
                                 </div>
                             </div>
@@ -117,7 +117,7 @@
                             </div>
                             <div class="form-group">
                                 <label>
-                                    <input type="checkbox" id="isReminder" name="reminder" onclick="toDoServices.Reminder('reminderDateDiv','reminderDate',this)"> Is Reminder
+                                    <input type="checkbox" id="isReminder" name="reminder" onclick="commonServices.Reminder('reminderDateDiv','reminderDate',this)"> Is Reminder
                                 </label>
                             </div>
                             <div class="form-group" id="reminderDateDiv" hidden="hidden">
@@ -133,7 +133,7 @@
                             <br>
                             <div class="btn-group btn-group-justified" role="group" aria-label="group button">
                                 <div class="btn-group" role="group">
-                                    <button type="button" class="btn btn-default" onclick="toDoServices.closeForm('addItemForm');" role="button">Close</button>
+                                    <button type="button" class="btn btn-default" onclick="commonServices.closeForm('addItemForm');" role="button">Close</button>
                                 </div>
                                 <div class="btn-group" role="group">
                                     <button type="submit" class="btn btn-default btn-hover-green" data-action="save" role="button">Save</button>
@@ -150,13 +150,13 @@
                             <div class="form-group">
                                 <label for="itemContent">Category</label>
                                 <div id="group">
-                                    <input type="checkbox" id="Food" value="Food" name="editCategory" onclick="toDoServices.category(this,'editCategory')"> Food
+                                    <input type="checkbox" id="Food" value="Food" name="editCategory" onclick="commonServices.category(this,'editCategory')"> Food
                                     <br>
-                                    <input type="checkbox" id="Health" value="Health" name="editCategory" onclick="toDoServices.category(this,'editCategory')"> Health
+                                    <input type="checkbox" id="Health" value="Health" name="editCategory" onclick="commonServices.category(this,'editCategory')"> Health
                                     <br>
-                                    <input type="checkbox" id="Study" value="Study" name="editCategory" onclick="toDoServices.category(this,'editCategory')"> Study
+                                    <input type="checkbox" id="Study" value="Study" name="editCategory" onclick="commonServices.category(this,'editCategory')"> Study
                                     <br>
-                                    <input type="checkbox" id="Other" value="Other" name="editCategory" onclick="toDoServices.category(this,'editCategory')"> Other
+                                    <input type="checkbox" id="Other" value="Other" name="editCategory" onclick="commonServices.category(this,'editCategory')"> Other
                                     <br>
                                 </div>
                             </div>
@@ -166,7 +166,7 @@
                             </div>
                             <div class="form-group">
                                 <label>
-                                    <input type="checkbox" id="editIsReminder" name="reminder" onclick="toDoServices.Reminder('editReminderDateDiv','editReminderDate',this)"> Is Reminder
+                                    <input type="checkbox" id="editIsReminder" name="reminder" onclick="commonServices.Reminder('editReminderDateDiv','editReminderDate',this)"> Is Reminder
                                 </label>
                             </div>
                             <div class="form-group" id="editReminderDateDiv" hidden="hidden">
@@ -187,7 +187,7 @@
                             <br>
                             <div class="btn-group btn-group-justified" role="group" aria-label="group button">
                                 <div class="btn-group" role="group">
-                                    <button type="button" class="btn btn-default" onclick="toDoServices.closeForm('editItemForm');" role="button">Close</button>
+                                    <button type="button" class="btn btn-default" onclick="commonServices.closeForm('editItemForm');" role="button">Close</button>
                                 </div>
                                 <div class="btn-group" role="group">
                                     <button type="submit" class="btn btn-default btn-hover-green" data-action="save" role="button">Save</button>
@@ -201,10 +201,12 @@
     </div>
     <script src="js/moment.js"></script>
     <script src="js/localStorage.js"></script>
-    <script src="js/toDo.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/addItem.js"></script>
+    <script src="js/editItem.js"></script>
+    <script src="js/deleteItem.js"></script>
     <script src="js/sort.js"></script>
     <script src="js/search.js"></script>
-    <script src="js/common.js"></script>
     <script>
     </script>
 </body>

@@ -1,14 +1,15 @@
 var searchServices = (function() {
 
-    var currentUser = localStorageServices.getLocalStorage("currentUser"),
+    var currentUser = commonServices.getCurrentUser(),
         filteredItems = [],
-        allItemList = localStorageServices.getLocalStorage(currentUser + "Items");;
+        allItemList = commonServices.getAllItem(currentUser);
 
     var searchOnDueDate = function() {
 
-        toDoServices.hideforms();
+        commonServices.hideforms();
         var fromDate = new Date(document.getElementById("range1").value),
             toDate = new Date(document.getElementById("range2").value);
+
         filteredItems = [];
 
         if (!document.getElementById("range1").value | !document.getElementById("range2").value) {
@@ -18,7 +19,7 @@ var searchServices = (function() {
 
         } else if (fromDate > toDate) {
 
-            alert("From date must be less than to_date")
+            alert("From date must be less than To date")
             return false;
 
         }
@@ -36,7 +37,7 @@ var searchServices = (function() {
 
     var searchOnCategory = function() {
 
-        toDoServices.hideforms();
+        commonServices.hideforms();
         var food = document.querySelectorAll('input[name="searchCategory"]')[0].checked;
         var health = document.querySelectorAll('input[name="searchCategory"]')[1].checked;
         var study = document.querySelectorAll('input[name="searchCategory"]')[2].checked;
@@ -73,7 +74,7 @@ var searchServices = (function() {
 
     var searchOnIsDone = function() {
 
-        toDoServices.hideforms();
+        commonServices.hideforms();
         var isDone = document.getElementById("searchIsDone").checked;
         filteredItems = [];
         if (allItemList.length != 0) {
@@ -89,7 +90,7 @@ var searchServices = (function() {
 
     var searchOnIsPending = function() {
 
-        toDoServices.hideforms();
+        commonServices.hideforms();
         var isPending = document.getElementById("searchIsPending").checked;
 
         if (!isPending) {
@@ -112,7 +113,7 @@ var searchServices = (function() {
     var displaySearchResult = function(filteredItems) {
         document.getElementById('toDoList').innerHTML = "<h3> Result Not Found</h3>";
         if (filteredItems.length != 0) {
-            toDoServices.displayToDoItem(filteredItems);
+            commonServices.displayToDoItem(filteredItems);
         }
     }
 
